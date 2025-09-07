@@ -3,7 +3,7 @@ import shutil
 from django.http import Http404
 from django.shortcuts import render
 from django.shortcuts import redirect
-from app.models import user_data, API, Document
+from app.models import user_data, API, Document, chats, Document2
 import requests
 from django.http import HttpResponseRedirect, JsonResponse
 def editprompt(request):
@@ -57,4 +57,18 @@ def deleteapi(request, apikey):
         print(f"Error: {e}")
         return JsonResponse({"result": "error", "message": str(e)}, status=500)
 
+def delchat(request,apikey):
+    chat=chats.objects.get(api_key=apikey)
+    data=Document2.objects.filter(api=chat)
+    for doc in data:
+        filepath = doc.file_path
+        if os.path.exists(filepath):
+            os.remove(filepath)
+    data.delete()
 
+    retrpath=chat.retriever_path
+    if retrpath and os.path.exists(retrpath):
+        shutil.rmtree(retrpath)  # deletes folder + all files inside
+
+    chat.delete()
+    return HttpResponseRedirect('/alltables')

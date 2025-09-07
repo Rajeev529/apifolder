@@ -149,7 +149,11 @@
       font-size: 0.95em;
       line-height: 1.4;
     }
-
+    .delchat{
+      text-decoration: none;
+      color: red;
+      margin-left: 24px;
+    }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -159,7 +163,7 @@
     <ul>
       <li><a class="sidelink" href="/uploadpage"> New Chat +</a></li>
       {% for i in chats %}
-      <li><a class="sidelink" href="/advocate/{{i.api_key}}/">{{i.name}}</a> </li>
+      <li><a class="sidelink" href="/advocate/{{i.api_key}}/">{{i.name}}</a> <a class="delchat" href="/delchat/{{i.api_key}}/">Delete</a> </li>
       {% endfor %}
     </ul>
   </div>
@@ -192,6 +196,7 @@
     $(document).on('click','#sendbtn', function(){
       var box = document.querySelector('.chat-window');
       var user = document.querySelector('#userInput').value;
+      document.querySelector('#userInput').value="";
       var apikey = "{{ apikey }}";
 
       // Add user message

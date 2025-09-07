@@ -24,6 +24,7 @@ urlpatterns = [
     path("embed", advocat.embed),
     path("alltables", views.alltables),
     path("chatbot", advocat.chatbot),
+    path("delchat/<str:apikey>/", crud.delchat, name='delchat'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
