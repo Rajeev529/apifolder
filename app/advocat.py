@@ -123,7 +123,7 @@ def chatbot(request):
 
         api = chats.objects.get(api_key=key)
         data = api.data
-
+        print(data)
         db = FAISS.load_local(api.retriever_path, embedding, allow_dangerous_deserialization=True)
         retriever = db.as_retriever()
 
@@ -160,6 +160,12 @@ def chatbot(request):
         # get JSON answer
         ans = rag_chain.invoke(q)
         
+        data['q'].append(q)
+        data['a'].append(ans)
+        # save history if needed
+        api.data = data
+        api.save(update_fields=["data"])
+        
         print("Original:", ans)
         if lang=='en':
             return JsonResponse(ans, safe=False)
@@ -177,10 +183,6 @@ def chatbot(request):
         translated = translate_json(ans, lang)
         print("Translated:", translated)
 
-        # save history if needed
-        # data['a'].append(translated)
-        # api.data = data
-        # api.save(update_fields=["data"])
 
         return JsonResponse(translated, safe=False)
 

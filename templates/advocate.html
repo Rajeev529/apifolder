@@ -168,9 +168,19 @@
     <div class="chat-header">🧠 Generative AI Chat</div>
 
     <div class="chat-window" id="chatWindow">
-      <div class="message user">hii create a ajax</div>
-      <div class="message bot">Hello LUKE! Your document is uploaded. Ask me anything about it or start a new topic.</div>
+      {% for question, answer in chat_history %}
+        <div class="message user">{{ question }}</div>
+        <div class="bot-block">
+          {% for section, details in answer.items %}
+            <div class="bot-title">📌 {{ section }}</div>
+            {% for key, value in details.items %}
+              <div class="bot-item"><b>{{ key }}</b>: {{ value }}</div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      {% endfor %}
     </div>
+
 
     <div class="chat-input">
       <input type="text" id="userInput" placeholder="Type your message...">

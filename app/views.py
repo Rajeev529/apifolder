@@ -15,9 +15,12 @@ def advo(request, apikey):
         if request.session['flag']==True:
             user=user_data.objects.get(username=request.session['username'])
             allchats=chats.objects.filter(user=user)
+            history=chats.objects.get(api_key=apikey)
+            print(history.data)
+            chat_history = zip(history.data["q"], history.data["a"])
             # allmsg=allchats[1].data
             # print(allchats[1].data)
-            return render(request, "advocate.html", {"chats": allchats, 'apikey': apikey})
+            return render(request, "advocate.html", {"chats": allchats, 'apikey': apikey, "chat_history": chat_history})
     except:
         pass
     return redirect('/login')
