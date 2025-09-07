@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+      <!-- Main Content -->
+      <div class="adminx-content">
+        <div class="adminx-main-content">
+          <div class="container-fluid">
+            <!-- BreadCrumb -->
+            <nav aria-label="breadcrumb" role="navigation">
+              <ol class="breadcrumb adminx-page-breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Charts</a></li>
+                <li class="breadcrumb-item active  aria-current="page">ChartJS</li>
+              </ol>
+            </nav>
+
+            <div class="pb-3">
+              <h1>Test Your Model Here</h1>
+            </div>
+
+            <div class="row">
+              <div class="row2">
+                <div class="box1">
+                  <h1>Ask Querry Here Relates To Your Documents</h1>
+                  <input id="myInput" class="ask" type="text" placeholder="ask">
+                </div>
+              </div>
+              <div class="d">
+                <p id="para" ></p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#myInput').keypress(function(event) {
+            console.log("input done")
+            if (event.which == 13) { // 13 is the Enter key
+              console.log("enter hit")
+              var inputValue = $('#myInput').val(); // Get the value of the input field
+              var apiKey = "{{apikey}}";
+              var box=document.querySelector('#para')
+              
+                  // Trigger AJAX request
+                  $.ajax({
+                    type: 'GET',
+                    url: '/findval',  // Your server endpoint
+                      data: {
+                        inputText: inputValue,
+                        apikey: apiKey,
+                        
+                      },
+                      success: function(response) {
+                          // Handle the success response
+                          console.log('Server response: ', response);
+                          box.innerHTML = `<pre>${JSON.stringify(response, null, 2)}</pre>`;
+                      },
+                      error: function(xhr, status, error) {
+                          // Handle error response
+
+                          console.log('Error: ', error);
+                      }
+                  });
+              }
+          });
+      });
+
+    </script>
+
+{% endblock %}

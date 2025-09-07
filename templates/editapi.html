@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+      <!-- Main Content -->
+      <div class="adminx-content">
+        <div class="adminx-main-content">
+          <div class="container-fluid">
+            <!-- BreadCrumb -->
+            <nav aria-label="breadcrumb" role="navigation">
+              <ol class="breadcrumb adminx-page-breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                <li class="breadcrumb-item active  aria-current="page">Elements</li>
+              </ol>
+            </nav>
+
+            <div class="pb-3">
+              <h1>Edit Your Tained Model</h1>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="card mb-grid">
+                  <div class="card-header">
+                    <div class="card-header-title">Validation</div>
+                  </div>
+                  <div class="card-body">
+                    <form id="needs-validation" action="/editprompt" novalidate enctype="multipart/form-data" method="post">
+                      {% csrf_token %}
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="validationCustom01">Name</label>
+                          <input type="text" class="form-control" name="name" id="validationCustom01" placeholder="username" value="{{data.name}}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="validationCustom01">ID</label>
+                          <input type="text" class="form-control" name="id" id="validationCustom01" placeholder="username" type="hidden" value="{{data.id}}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="validationCustom02">Description</label>
+                          <input type="text" class="form-control" name="desc" id="validationCustom02" value="{{data.desc}}" placeholder="Train Your API"  required>
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="validationCustom03">Key 1</label>
+                          <input type="text" class="form-control" value="{{data.key1}}" name="key1" id="validationCustom03" placeholder="for eg: price" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid city.
+                          </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label class="form-label" for="validationCustom04">Value 1</label>
+                          <input type="text" class="form-control" name="val1" value="{{data.val1}}" id="validationCustom04" placeholder="Value1" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid state.
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="validationCustom03">Key 2</label>
+                          <input type="text" class="form-control" name="key2"value="{{data.key2}}" id="validationCustom03" placeholder="for eg: stock" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid city.
+                          </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label class="form-label" for="validationCustom04">Value 2</label>
+                          <input type="text" class="form-control" name="val2" value="{{data.val2}}" id="validationCustom04" placeholder="Value 2" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid state.
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label class="form-label" for="validationCustom03">Key 3</label>
+                          <input type="text" class="form-control" name="key3" value="{{data.key3}}" id="validationCustom03" placeholder="for eg: name" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid city.
+                          </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label class="form-label" for="validationCustom04">Value 3</label>
+                          <input type="text" class="form-control" name="val3" value="{{data.val3}}" id="validationCustom04" placeholder="Value 3" required>
+                          <div class="invalid-feedback">
+                            Please provide a valid state.
+                          </div>
+                        </div>
+                
+                        </div>
+                      </div>
+
+                      <button class="btn btn-primary mr-2" type="submit">Update Prompt</button>
+                      <small class="text-muted">
+                        Click submit to test validation feature
+                      </small>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+    </div>
+
+
+    <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+          var form = document.getElementById('needs-validation');
+          if(form !== null) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          }
+        }, false);
+      })();
+    </script>
+  {% endblock %}

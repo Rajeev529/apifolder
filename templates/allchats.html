@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block content %}
+
+      <!-- Main Content -->
+      <div class="adminx-content">
+        <div class="adminx-main-content">
+          <div class="container-fluid">
+            <!-- BreadCrumb -->
+            <nav aria-label="breadcrumb" role="navigation">
+              <ol class="breadcrumb adminx-page-breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                <li class="breadcrumb-item active  aria-current="page">Regular Tables</li>
+              </ol>
+            </nav>
+
+            <div class="pb-3">
+              <h1>Data Tables</h1>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-warning" role="alert">
+                  <strong>DataTables are a jQuery-only plugin</strong><br />
+                  If you know a similar vanilla JS library that you want to see supported, feel free to open an issue on GitHub.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="card mb-grid">
+                  <div class="table-responsive-md">
+                    <table class="table table-actions table-striped table-hover mb-0" data-table>
+                      <thead>
+                        <tr>
+                          <th scope="col">
+                            <label class="custom-control custom-checkbox m-0 p-0">
+                              <input type="checkbox" class="custom-control-input table-select-all">
+                              <span class="custom-control-indicator"></span>
+                            </label>
+                          </th>
+                          <th scope="col">S.no</th>
+                          <th scope="col">File Name</th>
+                          <th scope="col">API KEY</th>
+                          <th scope="col">Language</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in chats %}
+                          <tr>
+                            <th scope="row">
+                              <label class="custom-control custom-checkbox m-0 p-0">
+                                <input type="checkbox" class="custom-control-input table-select-row">
+                                <span class="custom-control-indicator"></span>
+                              </label>
+                            </th>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{i.name}}</td>
+                            <td>{{i.api_key}}</td>
+                            <td>
+                              <span class="badge badge-pill badge-primary">{{i.lang}}</span>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-primary"><a class="" href='/advocate/{{i.api_key}}/'>Visit</a></button>
+                              <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- // Main Content -->
+    </div>
+
+{% endblock %}
