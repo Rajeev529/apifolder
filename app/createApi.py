@@ -1,6 +1,7 @@
 import os
 import uuid
 import asyncio
+import json
 
 from project.settings import llm
 from django.shortcuts import render
@@ -18,11 +19,19 @@ from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_community.document_loaders import PyPDFLoader, Docx2txtLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+# ✅ Replace this line
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
+# ✅ With the new import
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
-import json
-from django.conf import settings
+
+# ✅ Replace this line
+# embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+# ✅ With the new embedding object, specifying a Hugging Face model
+embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+# embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+
+
 load_dotenv()
 client = OpenAI(
     api_key=os.getenv("ppxapi"),
@@ -103,7 +112,7 @@ def create_api(request):
             asyncio.set_event_loop(asyncio.new_event_loop())
 
         # Build FAISS
-        embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        # ✅ Use the global `embedding` object initialized with Hugging Face
         db = FAISS.from_documents(chunks, embedding)
         db.save_local(retr_path)
 
@@ -162,6 +171,7 @@ def answer(request, apiKey):
     return JsonResponse({"error": "POST required"}, status=405)
 
 def analyze(q, api, user):
+    # ✅ Use the global `embedding` object initialized with Hugging Face
     db = FAISS.load_local(api.retriever_path, embedding, allow_dangerous_deserialization=True)
     retriever = db.as_retriever()
 
