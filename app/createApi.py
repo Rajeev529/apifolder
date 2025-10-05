@@ -22,7 +22,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 # ✅ Replace this line
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 # ✅ With the new import
-from langchain_huggingface import HuggingFaceEmbeddings
+# from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 
 # ✅ Replace this line
