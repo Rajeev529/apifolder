@@ -28,8 +28,8 @@ from langchain_community.vectorstores import FAISS
 # ✅ Replace this line
 # embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 # ✅ With the new embedding object, specifying a Hugging Face model
-embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-# embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+# embedding = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+embedding = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
 
 load_dotenv()
